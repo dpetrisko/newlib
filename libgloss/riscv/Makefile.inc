@@ -74,5 +74,4 @@ multilibtool_LIBRARIES += %D%/libsemihost.a
 	%D%/semihost-sys_unlink.c \
 	%D%/semihost-sys_write.c
 
-includemachinetooldir = $(tooldir)/include/machine
-includemachinetool_DATA = %D%/machine/syscall.h
+includemachinetool_DATA += %D%/machine/syscall.h

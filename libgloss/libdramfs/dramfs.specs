@@ -1,0 +1,11 @@
+%rename link_gcc_c_sequence                dramfs_link_gcc_c_sequence
+
+*dramfs_libgloss:
+-ldramfs
+
+*dramfs_libc:
+%{!specs=nano.specs:-lc} %{specs=nano.specs:-lc_nano}
+
+*link_gcc_c_sequence:
+%(dramfs_link_gcc_c_sequence) --start-group %G %(dramfs_libc) %(dramfs_libgloss) --end-group
+

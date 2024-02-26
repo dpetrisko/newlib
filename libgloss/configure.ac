@@ -43,6 +43,19 @@ config_testsuite=true
 dnl indicates whether to run configure within the libnosys subdirectory
 config_libnosys=true
 
+dnl indicates whether to run configure within the libdramfs subdirectory
+AC_ARG_ENABLE([dramfs],
+    AS_HELP_STRING([--enable-dramfs], [enable building dramfs library]),
+    [enable_dramfs=yes],
+    [enable_dramfs=no])dnl
+AM_CONDITIONAL([CONFIG_LIBDRAMFS], [test x$enable_dramfs = xyes])
+
+dnl indicates whether to run configure within the libdramfs subdirectory
+AC_ARG_WITH([littlefs],
+    AS_HELP_STRING([--with-littlefs], [littlefs source directory]))dnl
+LITTLEFS_DIR=$with_littlefs
+AC_SUBST([LITTLEFS_DIR])
+
 host_makefile_frag=${srcdir}/config/default.mh
 target_makefile_frag=${srcdir}/config/default.mt
 
@@ -107,7 +120,10 @@ case "${target}" in
 	target_makefile_frag=${srcdir}/config/mips.mt
 	;;
   riscv*-*-*)
-	config_riscv=true
+    config_riscv=true
+    if test x$enable_dramfs = xyes; then
+      config_libdramfs=true
+    fi
 	;;
   powerpc-*-*|powerpcle-*-*)
 	AC_CONFIG_FILES([rs6000/Makefile])
@@ -250,7 +266,7 @@ AC_SUBST(subdirs)
 dnl These subdirs have converted to non-recursive make.  Hopefully someday all
 dnl the ports above will too!
 m4_foreach_w([SUBDIR], [
-  aarch64 arc arm bfin csky d30v iq2000 libnosys lm32 nios2 riscv wince xtensa
+  aarch64 arc arm bfin csky d30v iq2000 libdramfs libnosys lm32 nios2 riscv wince xtensa
 ], [dnl
   AM_CONDITIONAL([CONFIG_]m4_toupper(SUBDIR), [test x$config_]SUBDIR = xtrue)
 ])
@@ -346,6 +362,7 @@ m4_include([aarch64/acinclude.m4])
 m4_include([arm/acinclude.m4])
 m4_include([i386/acinclude.m4])
 m4_include([libnosys/acinclude.m4])
+m4_include([libdramfs/acinclude.m4])
 m4_include([m68k/acinclude.m4])
 m4_include([mcore/acinclude.m4])
 m4_include([mips/acinclude.m4])

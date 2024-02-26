@@ -24,6 +24,9 @@ includetool_DATA =
 includesystooldir = $(tooldir)/include/sys
 includesystool_DATA =
 
+includemachinetooldir = $(tooldir)/include/machine
+includemachinetool_DATA =
+
 AM_CPPFLAGS = -idirafter $(srcroot)/include
 
 # A fake library so automake will generate rules for plain objects that we want
@@ -86,6 +89,9 @@ include iq2000/Makefile.inc
 endif
 if CONFIG_LIBNOSYS
 include libnosys/Makefile.inc
+endif
+if CONFIG_LIBDRAMFS
+include libdramfs/Makefile.inc
 endif
 if CONFIG_LM32
 include lm32/Makefile.inc
