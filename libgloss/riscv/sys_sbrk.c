@@ -1,4 +1,4 @@
-#ifdef USING_SIM_SPECS
+#if defined(USING_SIM_SPECS) || defined(USING_DRAMFS_SPECS)
 
 // Gdb simulator requires that sbrk be implemented without a syscall.
 extern char _end[];                /* _end is set in the linker command file */

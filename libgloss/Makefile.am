@@ -24,6 +24,9 @@ includetool_DATA =
 includesystooldir = $(tooldir)/include/sys
 includesystool_DATA =
 
+includemachinetooldir = $(tooldir)/include/machine
+includemachinetool_DATA =
+
 AM_CPPFLAGS = -idirafter $(srcroot)/include
 
 # A fake library so automake will generate rules for plain objects that we want

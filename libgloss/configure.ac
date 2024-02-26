@@ -43,6 +43,19 @@ config_testsuite=true
 dnl indicates whether to run configure within the libnosys subdirectory
 config_libnosys=true
 
+dnl indicates whether to compile the dramfs backend within the subdirectory
+AC_ARG_ENABLE([dramfs],
+    AS_HELP_STRING([--enable-dramfs], [enable building dramfs library]),
+    [enable_dramfs=yes],
+    [enable_dramfs=no])dnl
+AM_CONDITIONAL([CONFIG_LIBDRAMFS], [test x$enable_dramfs = xyes])
+
+dnl indicates the external littlefs sourcedir
+AC_ARG_WITH([littlefs],
+    AS_HELP_STRING([--with-littlefs], [littlefs source directory]))dnl
+LITTLEFS_DIR=$with_littlefs
+AC_SUBST([LITTLEFS_DIR])
+
 host_makefile_frag=${srcdir}/config/default.mh
 target_makefile_frag=${srcdir}/config/default.mt
 
@@ -107,7 +120,7 @@ case "${target}" in
 	target_makefile_frag=${srcdir}/config/mips.mt
 	;;
   riscv*-*-*)
-	config_riscv=true
+    config_riscv=true
 	;;
   powerpc-*-*|powerpcle-*-*)
 	AC_CONFIG_FILES([rs6000/Makefile])

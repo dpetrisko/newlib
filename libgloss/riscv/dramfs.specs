@@ -1,0 +1,14 @@
+#Spec file for dramfs syscalls.
+
+% rename lib dramfs_lib
+        % rename link dramfs_link
+
+              * lib : --start
+    - group - lc - ldramfs-- end
+    - group
+
+              * link :
+    % (dramfs_link)
+    %
+    : replace
+    - outfile (-lgloss - ldramfs)
